@@ -13,9 +13,7 @@ class adminSeed extends Seeder
     public function run()
     {
         {
-            DB::table('users')->where([
-                ['id', '=', 1],
-            ])->update(['role_id' => 1]);
+
 
         }
     }

@@ -12,8 +12,8 @@ class RoleSeeder3 extends Seeder
      */
     public function run()
     {
-        DB::table('roles')->insert([
-            'name' => 'User',
-        ]);
+        DB::table('users')->where([
+            ['id', '=', 1],
+        ])->update(['role_id' => 1]);
     }
 }
