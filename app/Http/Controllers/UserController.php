@@ -17,7 +17,7 @@ class UserController extends Controller
 
         $all_users = User::all();
 
-        return view('Users.all', compact('all_users'));
+        return view('users.all', compact('all_users'));
     }
 
     //edit page of an user
