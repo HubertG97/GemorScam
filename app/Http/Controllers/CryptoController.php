@@ -158,30 +158,35 @@ class CryptoController extends Controller
     //update database when posting the edited crypto.
 
     public function update(Crypto $crypto){
-        $data = request()->validate([
-            'name' => 'required',
-            'ticker' => 'required',
-            'price' => 'required',
-            'description' => 'required',
-            'website' => 'required',
-            'logo_url' => 'mimes:jpeg,png|max:1024',
 
-        ]);
-        $crypto->name = request('name');
-        $crypto->ticker = request('ticker');
-        $crypto->price = request('price');
-        $crypto->description = request('description');
-        $crypto->website = request('website');
-        $crypto->classification_id = request('classification');
+        if($crypto->user_id === Auth::id() || Auth::user()->checkRole('admin')) {
+            $data = request()->validate([
+                'name' => 'required',
+                'ticker' => 'required',
+                'price' => 'required',
+                'description' => 'required',
+                'website' => 'required',
+                'logo_url' => 'mimes:jpeg,png|max:1024',
 
-        if (request()->hasFile('image')){
-            $image_name = time().'.'.request('image')->extension();
-            request()->file('image')->move(public_path('image/logo'), $image_name);
-            $crypto->logo_url = $image_name;
+            ]);
+            $crypto->name = request('name');
+            $crypto->ticker = request('ticker');
+            $crypto->price = request('price');
+            $crypto->description = request('description');
+            $crypto->website = request('website');
+            $crypto->classification_id = request('classification');
+
+            if (request()->hasFile('image')) {
+                $image_name = time() . '.' . request('image')->extension();
+                request()->file('image')->move(public_path('image/logo'), $image_name);
+                $crypto->logo_url = $image_name;
+            }
+
+            $crypto->update($data);
+            toast('Crypto successfully updated!', 'success')->position('top-end')->autoClose(3000);
+        }else{
+            toast('Not authorized','Error')->position('top-end')->autoClose(3000);
         }
-
-        $crypto->update($data);
-        toast('Crypto successfully updated!','success')->position('top-end')->autoClose(3000);
         return redirect('cryptos/' . $crypto->id);
     }
 
@@ -189,10 +194,15 @@ class CryptoController extends Controller
 
     public function delete(Crypto $crypto){
 
-        //check if user or admin same on edit
-        Rating::where('crypto_id', $crypto->id)->delete();
-        RatingCount::where('crypto_id', $crypto->id)->delete();
-        Crypto::where('id', $crypto->id)->delete();
+        if($crypto->user_id === Auth::id() || Auth::user()->checkRole('admin')){
+            Rating::where('crypto_id', $crypto->id)->delete();
+            RatingCount::where('crypto_id', $crypto->id)->delete();
+            Crypto::where('id', $crypto->id)->delete();
+            toast('Crypto successfully deleted','success')->position('top-end')->autoClose(3000);
+        }else{
+            toast('Not authorized','Error')->position('top-end')->autoClose(3000);
+        }
+
 
         return redirect()->back();
     }
