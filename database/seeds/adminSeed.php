@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class AdminSeeder extends Seeder
+class adminSeed extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,9 +12,11 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->where([
-        ['id', '=', 1],
-    ])->update(['role_id' => 1]);
+        {
+            DB::table('users')->where([
+                ['id', '=', 1],
+            ])->update(['role_id' => 1]);
 
+        }
     }
 }
