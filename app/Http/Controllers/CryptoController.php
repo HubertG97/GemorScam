@@ -118,7 +118,7 @@ class CryptoController extends Controller
 
         if (request()->hasFile('image')){
             $image_name = time().'.'.request('image')->extension();
-            request()->file('image')->move(public_path('public/image/logo'), $image_name);
+            request()->file('image')->move(public_path('image/logo'), $image_name);
             $crypto->logo_url = $image_name;
 
         }else{
@@ -176,7 +176,7 @@ class CryptoController extends Controller
 
         if (request()->hasFile('image')){
             $image_name = time().'.'.request('image')->extension();
-            request()->file('image')->move(public_path('public/image/logo'), $image_name);
+            request()->file('image')->move(public_path('image/logo'), $image_name);
             $crypto->logo_url = $image_name;
         }
 
