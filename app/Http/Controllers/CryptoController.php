@@ -13,6 +13,7 @@ use App\Filters\CryptoFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use RealRashid\SweetAlert\Facades\Alert;
+use Codenixsv\CoinGeckoApi\CoinGeckoClient;
 
 class CryptoController extends Controller
 {
@@ -233,6 +234,14 @@ class CryptoController extends Controller
             alert()->error('Nothing found');
         };
         return view ('cryptos.results', compact('searchedcryptos', 'classifications'));
+    }
+
+    public function loadCoingecko(){
+
+        $client = new CoinGeckoClient();
+        $data = $client->coins()->getList();
+        return view ('cryptos.coingecko', compact('data'));
+
     }
 
 }

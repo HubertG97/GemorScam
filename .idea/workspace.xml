@@ -123,6 +123,7 @@
       <path value="$PROJECT_DIR$/vendor/fruitcake/laravel-cors" />
       <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
       <path value="$PROJECT_DIR$/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/vendor/codenix-sv/coingecko-api" />
     </include_path>
   </component>
   <component name="ProjectId" id="1jiPkMaqoeM16SRczvLPZcd5Sjv" />
