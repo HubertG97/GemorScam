@@ -19,7 +19,7 @@
                     <div class="flex flex-row bg-white rounded shadow p-3 mb-3">
                         <div style="background-image: url({{ asset('/image/logo/' . $crypto->logo_url) }}); background-position:center; background-repeat: no-repeat; background-size: contain;" class="w-3/12 h-48"></div>
                         <div class="w-7/12 p-3">
-                            <div class="flex flex-row justify-between"><h3 class="">{{$crypto->name}} ({{$crypto->ticker}})</h3><p><i>by <a href="/cryptos/{{$crypto->user_id}}">{{$crypto->User->name}}</a></i></p></div>
+                            <div class="flex flex-row justify-between"><h3 class="">{{$crypto->name}} ({{$crypto->ticker}})</h3><p><i>by <a href="/cryptos/other/{{$crypto->user_id}}">{{$crypto->User->name}}</a></i></p></div>
                             <p class="multi-line">{{$crypto->description}}</p>
                             <div class="flex flex-row">
                                 <button class="w-24 h-8 mb-1 bg-blue-500 text-white px-3 rounded mr-2" onclick="window.location.href='/cryptos/{{ $crypto->id }}/'">More info</button>
