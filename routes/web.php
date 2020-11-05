@@ -38,7 +38,7 @@ route::post('crypto-search', 'RatingController@create');
 route::get('cryptos/own', 'CryptoController@UserCrypto' )->middleware('role:author,admin');
 Route::post('cryptos/own', 'RatingController@create');
 //show other users crypto's
-Route::get('cryptos/other/{user}', 'Cryptocontroller@otherCrypto');
+Route::get('cryptos/other/{user}', 'CryptoController@otherCrypto');
 Route::post('cryptos/other/{user}', 'RatingController@create');
 //admin page to review crypto's and make them visible to other users
 Route::get('cryptos/review', 'CryptoController@review')->middleware('role:admin');
