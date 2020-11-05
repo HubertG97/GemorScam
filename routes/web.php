@@ -15,22 +15,23 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 Route::get('/', function () {
 
-    return view('welcome');
+    return redirect('/home');
 });
 
 
 //routes that require login
 Auth::routes();
+Route::get('/home', 'CryptoController@index');
+Route::get('/crypto-filter', 'CryptoController@CryptoFilter');
 Route::group(['middleware' => 'auth'], function () {
 
 //timeline routes and possibility to rate crypto's
-Route::get('/home', 'CryptoController@index');
-Route::post('/home', 'RatingController@create');
 
-//filtering and searching for cryptos
-Route::get('/crypto-filter', 'CryptoController@CryptoFilter');
-Route::post('/crypto-filter', 'RatingController@create');
+Route::post('/home', 'RatingController@create');
 route::get('crypto-search', 'CryptoController@CryptoSearch');
+//filtering and searching for cryptos
+
+Route::post('/crypto-filter', 'RatingController@create');
 route::post('crypto-search', 'RatingController@create');
 
 //view the users own crypto's
