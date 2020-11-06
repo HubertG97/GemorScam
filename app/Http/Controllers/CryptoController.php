@@ -254,36 +254,46 @@ class CryptoController extends Controller
         return view ('cryptos.invisible-results', compact('searchedcryptos', 'classifications'));
     }
     public function updateCoingecko(){
-
+        $image_name = time() . '.' . request('image')->extension();
+        request()->file('image')->move(public_path('image/logo'), $image_name);
+        $url = 'http://example.com/image.php';
+        $img = '/my/folder/flower.gif';
+        file_put_contents($img, file_get_contents($url));
 //        $client = new CoinGeckoClient();
 //        $data = $client->coins()->getList();
         // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
         $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc');
         $response = json_decode($response ,true);
-        var_dump($response);
+
         foreach ($response as $crypto){
 
 
             $symbol = $crypto['symbol'];
 
 
-//
-//            $existingC = Crypto::where([
-//                ['name', '=', ".$symbol."],
-//            ])->first();
-//
-//
-//
-//                $newListing = $existingC;
-//                $newListing->name = $crypto['name'];
-//                $newListing->ticker = $crypto['symbol'];
-//                $newListing->user_id = Auth::id();
-//                $newListing->classification_id = 1;
-//                $newListing->price = 0;
-//                $newListing->description = 'nothing here yet';
-//                $newListing->website = 'www.gemorscam.com';
-//                $newListing->logo_url = 'no_image.png';
-//                $newListing->save();
+
+            $existingC = Crypto::where([
+                ['name', '=', ".$symbol."],
+            ])->first();
+            $newListing = $existingC;
+
+            $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
+            $image_name = time().'.'.$extension;
+
+            $url = $crypto['image'];
+
+            $path = public_path('image/logo/');
+            $imgpath = $path.$image_name;
+            file_put_contents($imgpath, file_get_contents($url));
+
+
+
+            $newListing->price = $crypto['current_price'];
+
+
+                $newListing->logo_url = $image_name;
+                $newListing->market_cap = $crypto['market_cap'];
+                $newListing->update();
 
 
 
