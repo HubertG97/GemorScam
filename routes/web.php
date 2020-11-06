@@ -63,6 +63,6 @@ route::patch('users/{user}/', 'UserController@update')->middleware('role:admin')
 //create classification only for admin
 Route::get('classifications/create', 'ClassificationController@create')->middleware('role:admin');
 Route::post('classifications/create', 'ClassificationController@store')->middleware('role:admin');
-
+Route::get('cryptos/coingecko', 'CryptoController@updateCoingecko')->middleware('role:admin');
 
 });
