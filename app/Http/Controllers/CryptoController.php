@@ -23,7 +23,7 @@ class CryptoController extends Controller
 
         $visible_cryptos = Crypto::where([
             ['visible', '=', 1],
-        ])->orderBy('updated_at', 'desc')->paginate(25);
+        ])->orderBy('updated_at', 'desc')->orderBy('market_cap', 'desc')->paginate(25);
 
         $classifications = Classification::all();
 
@@ -258,7 +258,7 @@ class CryptoController extends Controller
 //        $client = new CoinGeckoClient();
 //        $data = $client->coins()->getList();
         // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
-        $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=5');
+        $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=6');
         $response = json_decode($response ,true);
 
         foreach ($response as $crypto){

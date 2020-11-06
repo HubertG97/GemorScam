@@ -46,8 +46,11 @@
                     </div>
 
                 @endforeach
-                    {{ $filteredcryptos->links() ?? '' }}
-                    {{ $searchedcryptos->links() ?? '' }}
+                @if($filteredcryptos)
+                    {{ $filteredcryptos->links() }}
+                @elseif($searchedcryptos)
+                    {{ $searchedcryptos->links() }}
+                @endif
 
             </div>
             <form action="/crypto-search" method="get" class="pb-5">
