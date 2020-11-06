@@ -16,12 +16,7 @@
                 @endforeach
 
             </div>
-            <form action="/crypto-search" method="get" class="pb-5">
-                <input class="form-control mb-4" type="text" name="q">
-                <br>
-                <button class="btn-light px-3 rounded" type="submit">Search</button>
-                @csrf
-            </form>
+
         </div>
     </div>
 @endsection
