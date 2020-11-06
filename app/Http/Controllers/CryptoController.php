@@ -240,7 +240,39 @@ class CryptoController extends Controller
 
         $client = new CoinGeckoClient();
         $data = $client->coins()->getList();
-        return view ('cryptos.coingecko', compact('data'));
+
+
+
+        foreach ($data as $crypto){
+
+            $name = $crypto['name'];
+            $symbol = $crypto['symbol'];
+
+            $existingName = Crypto::where([
+                ['name', '=', ".$name."],
+            ])->get();
+
+            $existingTicker = Crypto::where([
+                ['name', '=', ".$symbol."],
+            ])->get();
+
+
+            if(count($existingName) === 0 || (count($existingTicker) === 0)){
+                $newListing = new Crypto();
+                $newListing->name = $crypto['name'];
+                $newListing->ticker = $crypto['symbol'];
+                $newListing->user_id = Auth::id();
+                $newListing->classification_id = 1;
+                $newListing->price = 0;
+                $newListing->description = 'nothing here yet';
+                $newListing->website = 'www.gemorscam.com';
+                $newListing->logo_url = 'no_image.png';
+                $newListing->save();
+            }
+
+
+        }
+        return view ('cryptos.coingecko');
 
     }
 

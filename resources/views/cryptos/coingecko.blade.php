@@ -6,10 +6,7 @@
 
             </form>
             <div class="col-md-8">
-                @foreach($data as $crypto)
-                    {{$crypto->symbol}}
-                    {{$crypto->name}}
-                @endforeach
+
 
             </div>
             <form action="/crypto-search" method="get" class="pb-5">
