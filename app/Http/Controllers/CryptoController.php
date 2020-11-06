@@ -226,6 +226,7 @@ class CryptoController extends Controller
     public function cryptoSearch(Request $request){
         $classifications = Classification::all();
         $searchedcryptos = Crypto::query()
+            ->where('visibility', '=', 0)
             ->where('name', 'LIKE', "%{$request->q}%")
             ->orWhere('ticker', 'LIKE', "%{$request->q}%")
             ->get();
@@ -233,47 +234,25 @@ class CryptoController extends Controller
         if (count($searchedcryptos) === 0){
             alert()->error('Nothing found');
         };
+
+
         return view ('cryptos.results', compact('searchedcryptos', 'classifications'));
     }
 
-    public function loadCoingecko(){
+    public function invisibleSearch(Request $request){
+        $classifications = Classification::all();
+        $searchedcryptos = Crypto::query()
+            ->where('name', 'LIKE', "%{$request->q}%")
+            ->orWhere('ticker', 'LIKE', "%{$request->q}%")
+            ->get();
 
-        $client = new CoinGeckoClient();
-        $data = $client->coins()->getList();
-
-
-
-        foreach ($data as $crypto){
-
-            $name = $crypto['name'];
-            $symbol = $crypto['symbol'];
-
-            $existingName = Crypto::where([
-                ['name', '=', ".$name."],
-            ])->get();
-
-            $existingTicker = Crypto::where([
-                ['name', '=', ".$symbol."],
-            ])->get();
+        if (count($searchedcryptos) === 0){
+            alert()->error('Nothing found');
+        };
 
 
-            if(count($existingName) === 0 || (count($existingTicker) === 0)){
-                $newListing = new Crypto();
-                $newListing->name = $crypto['name'];
-                $newListing->ticker = $crypto['symbol'];
-                $newListing->user_id = Auth::id();
-                $newListing->classification_id = 1;
-                $newListing->price = 0;
-                $newListing->description = 'nothing here yet';
-                $newListing->website = 'www.gemorscam.com';
-                $newListing->logo_url = 'no_image.png';
-                $newListing->save();
-            }
-
-
-        }
-        return redirect()->back();
-
+        return view ('cryptos.review', compact('searchedcryptos', 'classifications'));
     }
+
 
 }

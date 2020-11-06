@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                @foreach($all_cryptos as $crypto)
+                @foreach($all_cryptos ?? $searchedcryptos as $crypto)
                     <div class="flex flex-row bg-white rounded shadow p-3 mb-3">
                         <div style="background-image: url({{ asset('/image/logo/' . $crypto->logo_url) }}); background-position:center; background-repeat: no-repeat; background-size: contain;" class="w-3/12 h-48"></div>
                         <div class="w-7/12 p-3">
