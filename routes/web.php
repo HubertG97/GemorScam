@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::post('/home', 'RatingController@create');
 Route::get('crypto-search', 'CryptoController@cryptoSearch');
-Route::get('invisible-crypto-search', 'CryptoController@nvisibleSearch');
+Route::get('invisible-crypto-search', 'CryptoController@invisibleSearch');
 
 //filtering and searching for cryptos
 
