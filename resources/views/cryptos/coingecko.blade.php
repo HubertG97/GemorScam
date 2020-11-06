@@ -8,7 +8,7 @@
             <div class="col-md-8">
                 @foreach($response as $crypto)
                     <div>
-                        <p>{{$crypto['name']}}</p>
+                        <p>{{$crypto['current_price']}}</p>
                         <p>{{$crypto['symbol']}}</p>
                         <p>{{$crypto['market_cap']}}</p>
                         <p>{{$crypto['image']}}</p>
