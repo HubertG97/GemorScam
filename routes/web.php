@@ -54,9 +54,6 @@ Route::get('cryptos/{crypto}/edit', 'CryptoController@edit')->middleware('role:a
 Route::patch('cryptos/{crypto}/', 'CryptoController@update')->middleware('role:author,admin');
 Route::get('cryptos/{crypto}/delete', 'CryptoController@delete')->middleware('role:author,admin');
 
-Route::get('invisible-crypto-search', 'CryptoController@delete')->middleware('role:admin');
-Route::patch('invisible-crypto-search', 'CryptoController@update')->middleware('role:admin');
-
 
 //show all users and edit them only for admin
 route::get('users/all', 'UserController@index')->middleware('role:admin');
