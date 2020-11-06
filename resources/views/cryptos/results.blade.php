@@ -48,8 +48,8 @@
                 @endforeach
                 @if($filteredcryptos->exists())
                     {{ $filteredcryptos->links() }}
-                @elseif($searchedcryptos)
-                    {{ $searchedcryptos->exists()) }}
+                @elseif($searchedcryptos->exists())
+                    {{ $searchedcryptos->links() }}
                 @endif
 
             </div>
