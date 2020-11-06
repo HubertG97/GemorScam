@@ -34,7 +34,7 @@ class CryptoController extends Controller
 
     public function review(){
 
-        $all_cryptos = Crypto::orderBy('visible')->latest()->get();
+        $all_cryptos = Crypto::orderBy('visible')->latest()->paginate(25);
 
         return view('cryptos.review', ['all_cryptos' => $all_cryptos]);
     }
@@ -251,7 +251,7 @@ class CryptoController extends Controller
         };
 
 
-        return view ('cryptos.review', compact('searchedcryptos', 'classifications'));
+        return view ('cryptos.invisible-results', compact('searchedcryptos', 'classifications'));
     }
 
 
