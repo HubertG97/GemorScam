@@ -261,22 +261,20 @@ class CryptoController extends Controller
         $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc');
         $response = json_decode($response ,true);
 
-//        foreach ($response as $crypto){
-//
-//            $name = $crypto['name'];
-//            $symbol = $crypto['symbol'];
+        foreach ($response as $crypto){
 
-//            $existingName = Crypto::where([
-//                ['name', '=', ".$name."],
-//            ])->get();
+
+            $symbol = $crypto['symbol'];
+
+
 //
-//            $existingTicker = Crypto::where([
+//            $existingC = Crypto::where([
 //                ['name', '=', ".$symbol."],
-//            ])->get();
-
-
-//            if(count($existingName) === 0 || (count($existingTicker) === 0)){
-//                $newListing = new Crypto();
+//            ])->first();
+//
+//
+//
+//                $newListing = $existingC;
 //                $newListing->name = $crypto['name'];
 //                $newListing->ticker = $crypto['symbol'];
 //                $newListing->user_id = Auth::id();
@@ -286,10 +284,10 @@ class CryptoController extends Controller
 //                $newListing->website = 'www.gemorscam.com';
 //                $newListing->logo_url = 'no_image.png';
 //                $newListing->save();
-//            }
 
 
-//        }
+
+        }
         return view('cryptos.coingecko', ['response' => $response]);
 
     }
