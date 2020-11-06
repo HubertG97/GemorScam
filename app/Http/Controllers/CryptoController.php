@@ -228,6 +228,7 @@ class CryptoController extends Controller
         $searchedcryptos = Crypto::query()
             ->where('name', 'LIKE', "%{$request->q}%")
             ->orWhere('ticker', 'LIKE', "%{$request->q}%")
+
             ->where('visible', '=', 1)
             ->paginate(25);
 
