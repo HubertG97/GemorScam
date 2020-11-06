@@ -254,11 +254,7 @@ class CryptoController extends Controller
         return view ('cryptos.invisible-results', compact('searchedcryptos', 'classifications'));
     }
     public function updateCoingecko(){
-        $image_name = time() . '.' . request('image')->extension();
-        request()->file('image')->move(public_path('image/logo'), $image_name);
-        $url = 'http://example.com/image.php';
-        $img = '/my/folder/flower.gif';
-        file_put_contents($img, file_get_contents($url));
+
 //        $client = new CoinGeckoClient();
 //        $data = $client->coins()->getList();
         // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
