@@ -269,12 +269,12 @@ class CryptoController extends Controller
 
 
             $existingC = Crypto::where([
-                ['ticker', '=', ".$symbol."],
+                ['ticker', '=', $symbol],
             ])->first();
             $newListing = $existingC;
 
             $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
-            $image_name = time().'.'.$extension;
+            $image_name = rand().'.'.$extension;
 
             $url = $crypto['image'];
 
