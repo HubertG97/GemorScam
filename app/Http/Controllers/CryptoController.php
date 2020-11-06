@@ -227,10 +227,10 @@ class CryptoController extends Controller
         $classifications = Classification::all();
 
         $searchedcryptos = Crypto::query()
-            ->where('name', 'LIKE', "%{$request->g}%")
-            ->orWhere('ticker', 'LIKE', "%{$request->g}%")
-            ->where(function ($query) {
-                $query->where('visible', '=', 1);
+            ->where('visible', '=', 1)
+            ->where(function ($query) use ($request) {
+                $query->where('name', 'LIKE', "%{$request->g}%")
+                    ->orWhere('ticker', 'LIKE', "%{$request->g}%");
             })
             ->paginate(25);
 
