@@ -272,7 +272,7 @@ class CryptoController extends Controller
 
 
         }
-        return view ('cryptos.coingecko');
+        return redirect()->back();
 
     }
 
