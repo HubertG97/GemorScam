@@ -23,7 +23,7 @@ class CryptoController extends Controller
 
         $visible_cryptos = Crypto::where([
             ['visible', '=', 1],
-        ])->latest()->paginate(25);
+        ])->orderBy('updated_at', 'desc')->paginate(25);
 
         $classifications = Classification::all();
 
@@ -34,7 +34,7 @@ class CryptoController extends Controller
 
     public function review(){
 
-        $all_cryptos = Crypto::orderBy('visible')->latest()->paginate(25);
+        $all_cryptos = Crypto::orderBy('visible')->orderBy('updated_at', 'desc')->paginate(25);
 
         return view('cryptos.review', ['all_cryptos' => $all_cryptos]);
     }
@@ -261,39 +261,39 @@ class CryptoController extends Controller
         $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc');
         $response = json_decode($response ,true);
 
-        foreach ($response as $crypto){
-
-
-            $symbol = $crypto['symbol'];
-
-
-
-            $existingC = Crypto::where([
-                ['ticker', '=', $symbol],
-            ])->first();
-            $newListing = $existingC;
-
-            $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
-            $image_name = rand().'.'.$extension;
-
-            $url = $crypto['image'];
-
-            $path = public_path('image/logo/');
-            $imgpath = $path.$image_name;
-            file_put_contents($imgpath, file_get_contents($url));
-
-
-
-            $newListing->price = $crypto['current_price'];
-
-
-                $newListing->logo_url = $image_name;
-                $newListing->market_cap = $crypto['market_cap'];
-                $newListing->update();
-
-
-
-        }
+//        foreach ($response as $crypto){
+//
+//
+//            $symbol = $crypto['symbol'];
+//
+//
+//
+//            $existingC = Crypto::where([
+//                ['ticker', '=', $symbol],
+//            ])->first();
+//            $newListing = $existingC;
+//
+//            $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
+//            $image_name = rand().'.'.$extension;
+//
+//            $url = $crypto['image'];
+//
+//            $path = public_path('image/logo/');
+//            $imgpath = $path.$image_name;
+//            file_put_contents($imgpath, file_get_contents($url));
+//
+//
+//
+//            $newListing->price = $crypto['current_price'];
+//
+//
+//                $newListing->logo_url = $image_name;
+//                $newListing->market_cap = $crypto['market_cap'];
+//                $newListing->update();
+//
+//
+//
+//        }
         return view('cryptos.coingecko', ['response' => $response]);
 
     }
