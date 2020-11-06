@@ -18,17 +18,18 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-
+Route::get('crypto-search', 'CryptoController@cryptoSearch');
+Route::get('/crypto-filter', 'CryptoController@CryptoFilter');
 //routes that require login
 Auth::routes();
 Route::get('/home', 'CryptoController@index');
-Route::get('/crypto-filter', 'CryptoController@CryptoFilter');
+
 Route::group(['middleware' => 'auth'], function () {
 
 //timeline routes and possibility to rate crypto's
 
 Route::post('/home', 'RatingController@create');
-Route::get('crypto-search', 'CryptoController@cryptoSearch');
+
 Route::get('invisible-crypto-search', 'CryptoController@invisibleSearch');
 Route::get('cryptos/coingecko', 'CryptoController@updateCoingecko')->middleware('role:admin');
 
