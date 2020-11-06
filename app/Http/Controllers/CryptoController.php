@@ -23,7 +23,7 @@ class CryptoController extends Controller
 
         $visible_cryptos = Crypto::where([
             ['visible', '=', 1],
-        ])->latest()->get();
+        ])->latest()->paginate(25);
 
         $classifications = Classification::all();
 
@@ -46,7 +46,7 @@ class CryptoController extends Controller
         $classifications = Classification::all();
         $user_cryptos = Crypto::where([
             ['user_id', '=', Auth::id()],
-        ])->latest()->get();
+        ])->latest()->paginate(25);
 
         return view('cryptos.own', ['all_cryptos' => $user_cryptos, 'classifications' => $classifications]);
     }
@@ -58,7 +58,7 @@ class CryptoController extends Controller
         $classifications = Classification::all();
         $other_crypto = Crypto::where([
             ['user_id', '=', $user->id], ['visible', '=', 1],
-        ])->latest()->get();
+        ])->latest()->paginate(25);
 
         return view('cryptos.other', ['all_cryptos' => $other_crypto, 'classifications' => $classifications]);
     }
@@ -229,7 +229,7 @@ class CryptoController extends Controller
             ->where('visibility', '=', 0)
             ->where('name', 'LIKE', "%{$request->q}%")
             ->orWhere('ticker', 'LIKE', "%{$request->q}%")
-            ->get();
+            ->paginate(25);
 
         if (count($searchedcryptos) === 0){
             alert()->error('Nothing found');
@@ -244,7 +244,7 @@ class CryptoController extends Controller
         $searchedcryptos = Crypto::query()
             ->where('name', 'LIKE', "%{$request->q}%")
             ->orWhere('ticker', 'LIKE', "%{$request->q}%")
-            ->get();
+            ->paginate(25);
 
         if (count($searchedcryptos) === 0){
             alert()->error('Nothing found');
