@@ -12,7 +12,7 @@
                         <p>{{$crypto['symbol']}}</p>
                         <p>{{$crypto['market_cap']}}</p>
                         <p>{{$crypto['image']}}</p>
-                        <p>{{$crypto['website']}}</p>
+
                     </div>
                 @endforeach
 
