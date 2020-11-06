@@ -225,12 +225,12 @@ class CryptoController extends Controller
 
     public function cryptoSearch(Request $request){
         $classifications = Classification::all();
-        $searchedcryptos = Crypto::query()
-            ->where('visible', '=', 1)
 
-            ->where(function ($query, $request) {
-                $query->where('name', 'LIKE', "%{$request->q}%")
-                    ->orWhere('ticker', 'LIKE', "%{$request->q}%");
+        $searchedcryptos = Crypto::query()
+            ->where('name', 'LIKE', "%{$request->g}%")
+            ->orWhere('ticker', 'LIKE', "%{$request->g}%")
+            ->where(function ($query) {
+                $query->where('visible', '=', 1);
             })
             ->paginate(25);
 
