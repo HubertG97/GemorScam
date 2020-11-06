@@ -28,14 +28,15 @@ Route::group(['middleware' => 'auth'], function () {
 //timeline routes and possibility to rate crypto's
 
 Route::post('/home', 'RatingController@create');
-route::get('crypto-search', 'CryptoController@CryptoSearch');
+Route::get('crypto-search', 'CryptoController@CryptoSearch');
 //filtering and searching for cryptos
 
 Route::post('/crypto-filter', 'RatingController@create');
-route::post('crypto-search', 'RatingController@create');
+Route::post('crypto-search', 'RatingController@create');
+Route::get('/cryptos/coingecko', 'CryptoController@loadCoingecko')->middleware('role:admin');
 
 //view the users own crypto's
-route::get('cryptos/own', 'CryptoController@UserCrypto' )->middleware('role:author,admin');
+Route::get('cryptos/own', 'CryptoController@UserCrypto' )->middleware('role:author,admin');
 Route::post('cryptos/own', 'RatingController@create');
 //show other users crypto's
 Route::get('cryptos/other/{user}', 'CryptoController@otherCrypto');
