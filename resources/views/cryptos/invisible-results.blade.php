@@ -34,7 +34,7 @@
                     </div>
 
                 @endforeach
-                {{ $all_cryptos->links() }}
+                {{ $searchedcryptos->links() }}
             </div>
             <form action="/invisible-crypto-search" method="get" class="pb-5">
                 <input class="form-control mb-4" type="text" name="q">
