@@ -33,7 +33,7 @@ class Crypto extends Model
         ])->pluck('rating');
 
         if (isset($rating)){
-            return intval($rating[0]);
+            return intval($rating);
         }
 
         return null;
