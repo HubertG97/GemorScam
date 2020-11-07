@@ -269,13 +269,13 @@ class CryptoController extends Controller
 
     public function updateCoingecko(){
 
-//        $client = new CoinGeckoClient();
-//        $data = $client->coins()->getList();
+        $client = new CoinGeckoClient();
+        $data = $client->coins()->getList();
         // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
-        for ($x = 12; $x <= 59; $x++) {
+        for ($x = 11; $x <= 59; $x++) {
 
-
-            $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page='.$x.'');
+            $response = $client;
+            //$response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page='.$x.'');
             $response = json_decode($response, true);
 
 
@@ -290,26 +290,26 @@ class CryptoController extends Controller
                     ])->first();
                     $newListing = $existingC;
                     $newListing->api_id = $crypto['id'];
-                    $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
-                    $image_name = rand() . '.' . $extension;
+//                    $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
+//                    $image_name = rand() . '.' . $extension;
+//
+//                    $url = $crypto['image'];
+//
+//                    $path = public_path('image/logo/');
+//                    $imgpath = $path . $image_name;
+//                    file_put_contents($imgpath, file_get_contents($url));
 
-                    $url = $crypto['image'];
 
-                    $path = public_path('image/logo/');
-                    $imgpath = $path . $image_name;
-                    file_put_contents($imgpath, file_get_contents($url));
-
-
-
-                    $newListing->logo_url = $image_name;
-                    $newListing->market_cap = $crypto['market_cap'];
+//
+//                    $newListing->logo_url = $image_name;
+//                    $newListing->market_cap = $crypto['market_cap'];
                     $newListing->update();
-                    sleep(1);
+
                 }
 
 //
             }
-            sleep(90);
+
         }
         return view('cryptos.coingecko', ['response' => $response]);
 
