@@ -281,11 +281,11 @@ class CryptoController extends Controller
             foreach ($response as $crypto) {
 
 
-                $symbol = $crypto['symbol'];
+                $name = $crypto['name'];
 
 
                 $existingC = Crypto::where([
-                    ['ticker', '=', $symbol],
+                    ['name', '=', $name],
                 ])->first();
                 $newListing = $existingC;
 
