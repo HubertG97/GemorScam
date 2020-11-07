@@ -14,4 +14,6 @@ class Rating extends Model
         return $this->belongsTo(Crypto::class);
     }
 
+
+
 }

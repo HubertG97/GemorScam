@@ -26,6 +26,19 @@ class Crypto extends Model
         return $this->hasOne(RatingCount::class);
     }
 
+    public function checkRating($user_id, $crypto_id){
+
+        $rating = Rating::where([
+            ['user_id', '=', $user_id], ['crypto_id', '=', $crypto_id],
+        ])->pluck('rating');
+
+        if (isset($rating)){
+            return intval($rating[0]);
+        }
+
+        return null;
+    }
+
     public function scopeFilter(Builder $builder, $request)
     {
         return (new CryptoFilter($request))->filter($builder);
