@@ -48,8 +48,8 @@ class RatingController extends Controller
         }
 
 
-
-        return redirect()->back();
+        $crypto_id = request('crypto_id');
+        return redirect(url()->previous().'#'.$crypto_id.'');
     }
     //creating the rating count
     public function createRatingCount(){
@@ -134,7 +134,8 @@ class RatingController extends Controller
             $rating_name = 'scam';
         }
         toast('Rated crypto as '.$rating_name. '','success')->position('top-end')->autoClose(2000);
-        return redirect()->back();
+        $crypto_id = request('crypto_id');
+        return redirect(url()->previous().'#'.$crypto_id.'');
     }
 
 }
