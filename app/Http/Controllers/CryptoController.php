@@ -254,18 +254,18 @@ class CryptoController extends Controller
         return view ('cryptos.invisible-results', compact('searchedcryptos', 'classifications'));
     }
 
-    public function getInfoCoin(){
-        $cryptos = Crypto::where([
-            ['visible', '=', 1],
-        ])->orderBy('market_cap', 'desc');
-
-        foreach ($cryptos as $crypto){
-            $response = file_get_contents('https://api.coingecko.com/api/v3/coins/'.$crypto->api_id.'?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false
-');
-            $response = json_decode($response ,true);
-            $crypto->
-        }
-    }
+//    public function getInfoCoin(){
+//        $cryptos = Crypto::where([
+//            ['visible', '=', 1],
+//        ])->orderBy('market_cap', 'desc');
+//
+//        foreach ($cryptos as $crypto){
+//            $response = file_get_contents('https://api.coingecko.com/api/v3/coins/'.$crypto->api_id.'?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false
+//');
+//            $response = json_decode($response ,true);
+//            $crypto->
+//        }
+//    }
 
     public function updateCoingecko(){
 
