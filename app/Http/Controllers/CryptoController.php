@@ -272,11 +272,12 @@ class CryptoController extends Controller
 //        $client = new CoinGeckoClient();
 //        $data = $client->coins()->getList();
         // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
-        for ($x = 12; $x <= 59; $x++) {
-            sleep(90);
+        for ($x = 11; $x <= 59; $x++) {
+
 
             $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page='.$x.'');
             $response = json_decode($response, true);
+
 
             foreach ($response as $crypto) {
 
@@ -303,8 +304,9 @@ class CryptoController extends Controller
                     $newListing->logo_url = $image_name;
                     $newListing->market_cap = $crypto['market_cap'];
                     $newListing->update();
+                    sleep(2);
                 }
-
+                sleep(90);
 //
             }
 
