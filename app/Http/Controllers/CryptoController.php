@@ -280,32 +280,32 @@ class CryptoController extends Controller
 
             foreach ($response as $crypto) {
 
-
-                $name = $crypto['name'];
-
-
-                $existingC = Crypto::where([
-                    ['name', '=', $name],
-                ])->first();
-                $newListing = $existingC;
-
-                $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
-                $image_name = rand().'.'.$extension;
-
-                $url = $crypto['image'];
-
-                $path = public_path('image/logo/');
-                $imgpath = $path.$image_name;
-                file_put_contents($imgpath, file_get_contents($url));
+                if ($crypto['id']) {
+                    $name = $crypto['name'];
 
 
-                $newListing->api_id = $crypto['id'];
+                    $existingC = Crypto::where([
+                        ['name', '=', $name],
+                    ])->first();
+                    $newListing = $existingC;
+
+                    $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
+                    $image_name = rand() . '.' . $extension;
+
+                    $url = $crypto['image'];
+
+                    $path = public_path('image/logo/');
+                    $imgpath = $path . $image_name;
+                    file_put_contents($imgpath, file_get_contents($url));
 
 
-                $newListing->logo_url = $image_name;
-                $newListing->market_cap = $crypto['market_cap'];
-                $newListing->update();
+                    $newListing->api_id = $crypto['id'];
 
+
+                    $newListing->logo_url = $image_name;
+                    $newListing->market_cap = $crypto['market_cap'];
+                    $newListing->update();
+                }
 
 //
             }
