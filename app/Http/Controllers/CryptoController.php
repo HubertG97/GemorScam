@@ -280,7 +280,7 @@ class CryptoController extends Controller
 
             foreach ($response as $crypto) {
 
-                if ($crypto['id']) {
+                if (($crypto['id']) != null) {
                     $name = $crypto['name'];
 
 
@@ -288,7 +288,7 @@ class CryptoController extends Controller
                         ['name', '=', $name],
                     ])->first();
                     $newListing = $existingC;
-
+                    $newListing->api_id = $crypto['id'];
                     $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
                     $image_name = rand() . '.' . $extension;
 
@@ -298,8 +298,6 @@ class CryptoController extends Controller
                     $imgpath = $path . $image_name;
                     file_put_contents($imgpath, file_get_contents($url));
 
-
-                    $newListing->api_id = $crypto['id'];
 
 
                     $newListing->logo_url = $image_name;
