@@ -274,7 +274,7 @@ class CryptoController extends Controller
         // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
         for ($x = 11; $x <= 59; $x++) {
 
-            $response = $client;
+            $response = $data;
             //$response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page='.$x.'');
             $response = json_decode($response, true);
 
