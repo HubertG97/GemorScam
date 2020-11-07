@@ -283,7 +283,7 @@ class CryptoController extends Controller
                 $existingC = Crypto::where([
                     ['name', '=', $crypto['name']],['api_id', '!=', null],
                 ])->first();
-                if (count($existingC) > 0) {
+                if ($existingC != null) {
                     $name = $crypto['name'];
 
 
@@ -306,8 +306,8 @@ class CryptoController extends Controller
 //                    $newListing->logo_url = $image_name;
 //                    $newListing->market_cap = $crypto['market_cap'];
                     Crypto::where([
-                            ['name', '=', $crypto['name']],['api_id', '!=', null],
-                        ])->update(['api_id' => $crypto['id']] );
+                            ['name', '=', $name,['api_id', '!=', null],
+                        ]])->update(['api_id' => $crypto['id']] );
 
                 }
 
