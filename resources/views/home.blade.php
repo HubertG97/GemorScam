@@ -40,7 +40,7 @@
                         <form method="post">
                             <input class="form-control mb-4 d-none" type="text" name="crypto_id" value="{{$crypto->id}}">
                             <input type="checkbox" class="form-control mb-4 d-none" name="checker" value=0 checked="checked">
-                            <button @if($crypto->checkRating(Auth::id(), $crypto->id) == 0) class="w-24 h-8 mb-1 bg-red-500 text-white px-3 rounded" @elseif($crypto->checkRating(Auth::id(), $crypto->id) == 1 || $crypto->checkRating(Auth::id(), $crypto->id) == null) class="w-24 h-8 mb-1 bg-white border-solid border-2 border-red-500 text-red-500 px-3 rounded" @endif type="submit">Scam {{$crypto->RatingCount->scam_count ?? '0'}}</button>
+                            <button @if($crypto->checkRating(Auth::id(), $crypto->id) == 0 || $crypto->checkRating(Auth::id(), $crypto->id) == null) class="w-24 h-8 mb-1 bg-red-500 text-white px-3 rounded" @elseif($crypto->checkRating(Auth::id(), $crypto->id) == 1 ) class="w-24 h-8 mb-1 bg-white border-solid border-2 border-red-500 text-red-500 px-3 rounded" @endif type="submit">Scam {{$crypto->RatingCount->scam_count ?? '0'}}</button>
                             @csrf
                         </form>
                     </div>
