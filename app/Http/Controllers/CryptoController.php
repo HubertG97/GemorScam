@@ -272,7 +272,7 @@ class CryptoController extends Controller
 //        $client = new CoinGeckoClient();
 //        $data = $client->coins()->getList();
         // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
-        for ($x = 8; $x <= 10; $x++) {
+        for ($x = 10; $x <= 11; $x++) {
             sleep(2);
 
             $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page='.$x.'');
@@ -289,21 +289,21 @@ class CryptoController extends Controller
                 ])->first();
                 $newListing = $existingC;
 
-//                $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
-//                $image_name = rand().'.'.$extension;
-//
-//                $url = $crypto['image'];
-//
-//                $path = public_path('image/logo/');
-//                $imgpath = $path.$image_name;
-//                file_put_contents($imgpath, file_get_contents($url));
+                $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
+                $image_name = rand().'.'.$extension;
+
+                $url = $crypto['image'];
+
+                $path = public_path('image/logo/');
+                $imgpath = $path.$image_name;
+                file_put_contents($imgpath, file_get_contents($url));
 
 
                 $newListing->api_id = $crypto['id'];
 
 
-//                $newListing->logo_url = $image_name;
-//                $newListing->market_cap = $crypto['market_cap'];
+                $newListing->logo_url = $image_name;
+                $newListing->market_cap = $crypto['market_cap'];
                 $newListing->update();
 
 
