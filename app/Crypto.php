@@ -34,8 +34,8 @@ class Crypto extends Model
 
         if (isset($rating)){
 
-            $ratingValue = $rating[0];
-            return intval($ratingValue);
+            //$ratingValue = $rating[0];
+            return intval($rating);
         }
 
         return null;
