@@ -253,19 +253,35 @@ class CryptoController extends Controller
 
         return view ('cryptos.invisible-results', compact('searchedcryptos', 'classifications'));
     }
+
+    public function getInfoCoin(){
+        $cryptos = Crypto::where([
+            ['visible', '=', 1],
+        ])->orderBy('market_cap', 'desc');
+
+        foreach ($cryptos as $crypto){
+            $response = file_get_contents('https://api.coingecko.com/api/v3/coins/'.$crypto->api_id.'?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false
+');
+            $response = json_decode($response ,true);
+            $crypto->
+        }
+    }
+
     public function updateCoingecko(){
 
 //        $client = new CoinGeckoClient();
 //        $data = $client->coins()->getList();
         // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
-        $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=4');
-        $response = json_decode($response ,true);
+        for ($x = 4; $x <= 11; $x++) {
+            sleep(60);
 
-        foreach ($response as $crypto){
+            $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page='.$x.'');
+            $response = json_decode($response, true);
+
+            foreach ($response as $crypto) {
 
 
                 $symbol = $crypto['symbol'];
-
 
 
                 $existingC = Crypto::where([
@@ -283,7 +299,6 @@ class CryptoController extends Controller
 //                file_put_contents($imgpath, file_get_contents($url));
 
 
-
                 $newListing->api_id = $crypto['id'];
 
 
@@ -293,6 +308,8 @@ class CryptoController extends Controller
 
 
 //
+            }
+
         }
         return view('cryptos.coingecko', ['response' => $response]);
 
