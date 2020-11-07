@@ -30,7 +30,7 @@ class Crypto extends Model
 
         $rating = Rating::where([
             ['user_id', '=', $user_id], ['crypto_id', '=', $crypto_id],
-        ])->pluck('rating');
+        ])->value('rating');
 
         if (isset($rating)){
 
