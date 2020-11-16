@@ -269,63 +269,55 @@ class CryptoController extends Controller
 
     public function updateCoingecko(){
 
-        $client = new CoinGeckoClient();
-        $data = $client->coins()->getList();
+//        $client = new CoinGeckoClient();
+//        $data = $client->coins()->getList();
         // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
-//        for ($x = 11; $x <= 59; $x++) {
+        for ($x = 1; $x <= 64; $x++) {
 
-            $response = $data;
-            //$response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page='.$x.'');
-            //$response = json_decode($response, true);
+//            $response = $data;
+            $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=' . $x . '');
+            $response = json_decode($response, true);
 
 
             foreach ($response as $crypto) {
-//                $existingC = Crypto::where([
-//                    ['name', '=', $crypto['name']],['api_id', '=', null],
-//                ])->first();
-//                if ($existingC === !null) {
-//                    $name = $crypto['name'];
-
-
-//                    $existingC = Crypto::where([
-//                        ['name', '=', $name],['api_id', '!=', null],
-//                    ])->first();
-
-                $newListing = new Crypto();
-                $newListing->name = $crypto['name'];
-                $newListing->ticker = $crypto['symbol'];
-                $newListing->api_id = $crypto['id'];
-                $newListing->classification_id = 1;
-                $newListing->user_id = Auth::id();
-                $newListing->price = 0;
-                $newListing->description = 'nothing to see here';
-                $newListing->website = 'www.google.nl';
-                $newListing->logo_url = 'no_image.png';
-                $newListing->save();
-
-//                    $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
-//                    $image_name = rand() . '.' . $extension;
+                $existingC = Crypto::where([
+                    ['api_id', '=', $crypto['id']]
+                ])->first();
 //
-//                    $url = $crypto['image'];
-//
-//                    $path = public_path('image/logo/');
-//                    $imgpath = $path . $image_name;
-//                    file_put_contents($imgpath, file_get_contents($url));
+
+                $existingC->name = $crypto['name'];
+                $existingC->api_id = $crypto['id'];
+
+                $existingC->price = $crypto['current_price'];
+                $existingC->description = $crypto['description']['en'];
+                $existingC->website = 'www.google.nl';
+                $existingC->logo_url = 'no_image.png';
+
+
+                $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
+                $image_name = 'a2' . rand() . '.' . $extension;
+
+                $url = $crypto['image'];
+
+                $path = public_path('image/logo/');
+                $imgpath = $path . $image_name;
+                file_put_contents($imgpath, file_get_contents($url));
 
 
 //
-//                    $newListing->logo_url = $image_name;
-//                    $newListing->market_cap = $crypto['market_cap'];
-//                    Crypto::where([
-//                            ['name', '=', $name,['api_id', '=', null],
-//                        ]])->update(['api_id' => $crypto['id']] );
-//
-//                }
+                $existingC->logo_url = $image_name;
+                $existingC->market_cap = $crypto['market_cap'];
+                $existingC->ath = $crypto['ath'];
+                $existingC->atl = $crypto['atl'];
+                $existingC->total_supply = $crypto['total_supply'];
+
+
+                $existingC->save();
 
 //
             }
 
-//        }
+        }
         return view('cryptos.coingecko', ['response' => $response]);
 
     }
