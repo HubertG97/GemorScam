@@ -280,18 +280,26 @@ class CryptoController extends Controller
 
 
             foreach ($response as $crypto) {
-                $existingC = Crypto::where([
-                    ['name', '=', $crypto['name']],['api_id', '=', null],
-                ])->first();
-                if ($existingC === !null) {
-                    $name = $crypto['name'];
+//                $existingC = Crypto::where([
+//                    ['name', '=', $crypto['name']],['api_id', '=', null],
+//                ])->first();
+//                if ($existingC === !null) {
+//                    $name = $crypto['name'];
 
 
 //                    $existingC = Crypto::where([
 //                        ['name', '=', $name],['api_id', '!=', null],
 //                    ])->first();
-//                    $newListing = $existingC;
-//                    $newListing->api_id = $crypto['id'];
+
+                $newListing = new Crypto();
+                $newListing->name = $crypto['name'];
+                $newListing->ticker = $crypto['symbol'];
+                $newListing->api_id = $crypto['id'];
+                $newListing->classification_id = 1;
+                $newListing->user_id = Auth::id();
+
+                $newListing->save();
+
 //                    $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
 //                    $image_name = rand() . '.' . $extension;
 //
@@ -305,11 +313,11 @@ class CryptoController extends Controller
 //
 //                    $newListing->logo_url = $image_name;
 //                    $newListing->market_cap = $crypto['market_cap'];
-                    Crypto::where([
-                            ['name', '=', $name,['api_id', '=', null],
-                        ]])->update(['api_id' => $crypto['id']] );
-
-                }
+//                    Crypto::where([
+//                            ['name', '=', $name,['api_id', '=', null],
+//                        ]])->update(['api_id' => $crypto['id']] );
+//
+//                }
 
 //
             }
