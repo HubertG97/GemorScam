@@ -297,9 +297,9 @@ class CryptoController extends Controller
                 $newListing->api_id = $crypto['id'];
                 $newListing->classification_id = 1;
                 $newListing->user_id = Auth::id();
-                $crypto->price = 0;
-                $crypto->description = 'nothing to see here';
-                $crypto->website = 'www.google.nl';
+                $newListing->price = 0;
+                $newListing->description = 'nothing to see here';
+                $newListing->website = 'www.google.nl';
 
                 $newListing->save();
 
