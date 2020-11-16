@@ -289,9 +289,7 @@ class CryptoController extends Controller
                 $existingC->api_id = $crypto['id'];
 
                 $existingC->price = $crypto['current_price'];
-                $existingC->description = $crypto['description']['en'];
-                $existingC->website = 'www.google.nl';
-                $existingC->logo_url = 'no_image.png';
+
 
 
                 $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
