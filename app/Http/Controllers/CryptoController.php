@@ -283,7 +283,7 @@ class CryptoController extends Controller
                 $existingC = Crypto::where([
                     ['name', '=', $crypto['name']],['api_id', '=', null],
                 ])->first();
-                if (!isEmpty($existingC)) {
+                if ($existingC) {
                     $name = $crypto['name'];
 
 
