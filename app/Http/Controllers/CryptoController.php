@@ -300,7 +300,7 @@ class CryptoController extends Controller
                 $newListing->price = 0;
                 $newListing->description = 'nothing to see here';
                 $newListing->website = 'www.google.nl';
-
+                $newListing->logo_url = 'no_image.png';
                 $newListing->save();
 
 //                    $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
