@@ -316,7 +316,7 @@ class CryptoController extends Controller
 
 //
             }
-
+            sleep(90);
         }
         return view('cryptos.coingecko', ['response' => $response]);
 
