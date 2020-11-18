@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::post('/home', 'RatingController@create');
 
 Route::get('invisible-crypto-search', 'CryptoController@invisibleSearch');
-Route::get('cryptos/coingecko', 'CryptoController@updateCoingecko')->middleware('role:admin');
+Route::get('cryptos/coingecko', 'CryptoController@getCoinInfo')->middleware('role:admin');
 
 //filtering and searching for cryptos
 

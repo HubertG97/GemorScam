@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Classification;
 use App\Crypto;
 use App\Rating;
@@ -254,25 +255,40 @@ class CryptoController extends Controller
         return view ('cryptos.invisible-results', compact('searchedcryptos', 'classifications'));
     }
 
-//    public function getInfoCoin(){
-//        $cryptos = Crypto::where([
-//            ['visible', '=', 1],
-//        ])->orderBy('market_cap', 'desc');
-//
-//        foreach ($cryptos as $crypto){
-//            $response = file_get_contents('https://api.coingecko.com/api/v3/coins/'.$crypto->api_id.'?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false
-//');
-//            $response = json_decode($response ,true);
-//            $crypto->
-//        }
-//    }
+    public function getInfoCoin(){
+        $cryptos = Crypto::where([
+            ['visible', '=', 1],
+        ])->orderBy('market_cap', 'desc')->limit(2020);
+
+        foreach ($cryptos as $crypto){
+            $response = file_get_contents('https://api.coingecko.com/api/v3/coins/'.$crypto->api_id.'?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false
+');
+            $response = json_decode($response ,true);
+            $crypto->description = $response['description']['en'];
+            $crypto->website = $response['links']['homepage'];
+            $crypto->update();
+
+            foreach ($response['categories'] as $category){
+
+                if (!(Category::where('name', '=', $category)->exists())) {
+                    $newCategory = new Category();
+                    $newCategory->name = $category;
+                    $newCategory->save();
+                }
+
+
+
+            }
+            sleep(1);
+        }
+    }
 
     public function updateCoingecko(){
 
-//        $client = new CoinGeckoClient();
-//        $data = $client->coins()->getList();
+        $client = new CoinGeckoClient();
+        $data = $client->coins()->getList();
         // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
-        for ($x = 1; $x <= 64; $x++) {
+        for ($x = 1; $x <= 21; $x++) {
 
 //            $response = $data;
             $response = file_get_contents('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=' . $x . '');
