@@ -258,7 +258,7 @@ class CryptoController extends Controller
     public function getInfoCoin(){
         $cryptos = Crypto::where([
             ['visible', '=', 1],
-        ])->orderBy('market_cap', 'desc')->limit(2020);
+        ])->orderBy('market_cap', 'desc')->get();
 
         foreach ($cryptos as $crypto){
             $response = file_get_contents('https://api.coingecko.com/api/v3/coins/'.$crypto->api_id.'?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false
