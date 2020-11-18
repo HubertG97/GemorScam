@@ -270,8 +270,8 @@ class CryptoController extends Controller
             $crypto->website = $response['links']['homepage'][0];
 
             $category = $response['categories'];
-            preg_match_all('/".*?"|\'.*?\'/', $category, $matches);
-            $crypto->category = $matches[0][0];
+           // preg_match_all('/".*?"|\'.*?\'/', $category, $matches);
+            $crypto->category = $category[0];
             $crypto->update();
 
             foreach ($response['categories'] as $category){
