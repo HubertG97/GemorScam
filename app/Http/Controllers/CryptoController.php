@@ -271,9 +271,9 @@ class CryptoController extends Controller
 
             $category = $response['categories'];
            // preg_match_all('/".*?"|\'.*?\'/', $category, $matches);
-            if (!(isEmpty($category))){
+            if (!(empty($category))){
                 $crypto->category = $category[0];
-                $crypto->update(); 
+                $crypto->update();
             }
 
 
