@@ -265,10 +265,13 @@ class CryptoController extends Controller
 ');
             $response = json_decode($response ,true);
 
-            $description = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $response['description']['en']);
+            $description = strip_tags($response['description']['en']);
             $crypto->description = $description;
             $crypto->website = $response['links']['homepage'][0];
-            $crypto->category = $response['categories'][0];
+
+            $category = $response['categories'];
+            preg_match_all('/".*?"|\'.*?\'/', $category, $matches);
+            $crypto->category = $matches[0][0];
             $crypto->update();
 
             foreach ($response['categories'] as $category){
