@@ -264,8 +264,11 @@ class CryptoController extends Controller
             $response = file_get_contents('https://api.coingecko.com/api/v3/coins/'.$crypto->api_id.'?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false
 ');
             $response = json_decode($response ,true);
-            $crypto->description = $response['description']['en'];
-            $crypto->website = $response['links']['homepage'];
+
+            $description = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $response['description']['en'];);
+            $crypto->description = $description;
+            $crypto->website = $response['links']['homepage'][0];
+            $crypto->category = $response['categories'];
             $crypto->update();
 
             foreach ($response['categories'] as $category){
