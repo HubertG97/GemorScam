@@ -24,7 +24,7 @@
                         <p class="multi-line">{{$crypto->description}}</p>
                         <div class="flex flex-row">
                             <button class="w-24 h-8 mb-1 bg-blue-500 text-white px-3 rounded mr-2" onclick="window.location.href='/cryptos/{{ $crypto->id }}/'">More info</button>
-                            <button class="w-24 h-8 mb-1 bg-yellow-500 text-white px-3 rounded" onclick="window.open('https://{{ $crypto->website }}','_blank')">Website</button>
+                            <button class="w-24 h-8 mb-1 bg-yellow-500 text-white px-3 rounded" onclick="window.open('{{ $crypto->website }}','_blank')">Website</button>
 
                         </div>
 

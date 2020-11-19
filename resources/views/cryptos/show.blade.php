@@ -12,7 +12,7 @@
                         <p class=""><strong>Price:</strong> ${{$crypto->price}} </p>
                         <p><strong>Classification:</strong> {{$crypto->classification->classification}}</p>
                         <div class="flex flex-row">
-                            <button class="w-24 h-8 mb-1 bg-yellow-500 text-white px-3 rounded" onclick="window.open('https://{{ $crypto->website }}','_blank')">Website</button>
+                            <button class="w-24 h-8 mb-1 bg-yellow-500 text-white px-3 rounded" onclick="window.open('{{ $crypto->website }}','_blank')">Website</button>
                             <div class="flex flex-row ml-4 self-center">
                                 <p class="mr-2">Gem: {{$crypto->RatingCount->gem_count ?? '0'}}</p>
                                 <p>Scam: {{$crypto->RatingCount->scam_count ?? '0'}}</p>
