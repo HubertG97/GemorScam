@@ -312,36 +312,35 @@ class CryptoController extends Controller
                 ])->first();
 //
 
-                $existingC->name = $crypto['name'];
-                $existingC->api_id = $crypto['id'];
+
 
                 $existingC->price = $crypto['current_price'];
 
 
 
-                $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
-                $image_name = 'a2' . rand() . '.' . $extension;
-
-                $url = $crypto['image'];
-
-                $path = public_path('image/logo/');
-                $imgpath = $path . $image_name;
-                file_put_contents($imgpath, file_get_contents($url));
+//                $extension = pathinfo(parse_url($crypto['image'], PHP_URL_PATH), PATHINFO_EXTENSION);
+//                $image_name = 'a2' . rand() . '.' . $extension;
+//
+//                $url = $crypto['image'];
+//
+//                $path = public_path('image/logo/');
+//                $imgpath = $path . $image_name;
+//                file_put_contents($imgpath, file_get_contents($url));
 
 
 //
-                $existingC->logo_url = $image_name;
+              //  $existingC->logo_url = $image_name;
                 $existingC->market_cap = $crypto['market_cap'];
                 $existingC->ath = $crypto['ath'];
                 $existingC->atl = $crypto['atl'];
-                $existingC->total_supply = $crypto['total_supply'];
+//                $existingC->total_supply = $crypto['total_supply'];
 
 
                 $existingC->save();
 
 //
             }
-            sleep(90);
+            sleep(60);
         }
         return view('cryptos.coingecko', ['response' => $response]);
 
