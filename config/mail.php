@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'no-reply@gemorscam.com', 'name' => 'GemOrScam'],
+    'from' => ['address' => 'no-reply@gemorscam.com', 'name' => 'Gem or Scam'],
 
 
 

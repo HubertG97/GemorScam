@@ -135,7 +135,7 @@ class RatingController extends Controller
         }
         toast('Rated crypto as '.$rating_name. '','success')->position('top-end')->autoClose(2000);
         $crypto_id = request('crypto_id');
-        return redirect(url()->previous().'#'.$crypto_id.'');
+        return redirect(url()->previous().'#'.$crypto_id.'+300px');
     }
 
 }
